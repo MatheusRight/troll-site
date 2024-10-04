@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema.</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: #00FF00;
+            text-align: center;
+            padding: 50px;
+        }
+        .hidden {
+            display: none;
+        }
+        #alert {
+            color: red;
+            font-size: 24px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sistema Crítico</h1>
+    <p id="loading">Iniciando processo crítico do sistema...</p>
+    <p id="countdown" class="hidden">Processo crítico em andamento... <span id="seconds"></span> segundos restantes.</p>
+    <p id="error" class="hidden">Erro grave detectado! Tentando corrigir automaticamente...</p>
+    <p id="alert" class="hidden">ALERTA CRÍTICO!</p>
+    <p id="troll" class="hidden">Você acabou de ser TROLADO! :)</p>
+    <p id="end" class="hidden">Não se preocupe, está tudo bem. Só uma brincadeira!</p>
+
+    <script>
+        function startTroll() {
+            document.getElementById("loading").style.display = "block";
+            
+            setTimeout(() => {
+                document.getElementById("loading").style.display = "none";
+                document.getElementById("countdown").classList.remove("hidden");
+                
+                let seconds = 5;
+                document.getElementById("seconds").innerText = seconds;
+                
+                let countdownInterval = setInterval(() => {
+                    seconds--;
+                    document.getElementById("seconds").innerText = seconds;
+                    
+                    if (seconds === 0) {
+                        clearInterval(countdownInterval);
+                        showErrorMessages();
+                    }
+                }, 1000);
+            }, 2000);
+        }
+
+        function showErrorMessages() {
+            document.getElementById("countdown").classList.add("hidden");
+            document.getElementById("error").classList.remove("hidden");
+            
+            setTimeout(() => {
+                document.getElementById("error").classList.add("hidden");
+                document.getElementById("alert").classList.remove("hidden");
+                
+                setTimeout(() => {
+                    document.getElementById("alert").classList.add("hidden");
+                    document.getElementById("troll").classList.remove("hidden");
+                    document.getElementById("end").classList.remove("hidden");
+                }, 3000);
+            }, 3000);
+        }
+
+        window.onload = startTroll;
+    </script>
+</body>
+</html>
